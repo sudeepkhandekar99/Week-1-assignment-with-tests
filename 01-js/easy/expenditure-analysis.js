@@ -12,18 +12,20 @@ function calculateTotalSpentByCategory(transactions) {
   var res = [];
   var map = new Map();
 
+  // extracting category name and total value from transactions
   for (let i = 0; i < transactions.length; i++) {
-    // console.log(transactions[i].price)
     let value = transactions[i].price;
     let category = transactions[i].category;
     if (map.has(category)) map.set(category, map.get(category) + value);
     else map.set(category, value);
   }
 
+  // building response in proper format in res
   for ([key, value] of map) {
     let temp = {"category":key, "totalSpent": value};
     res.push(temp);
   }
+  
   return res;
 }
 
