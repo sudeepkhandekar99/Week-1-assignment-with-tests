@@ -17,6 +17,62 @@
   - `npm run test-calculator`
 */
 
-class Calculator {}
+class Calculator {
+  constructor() {
+    this.result = 0;
+  }
+  
+  add(number) {
+    this.result += number;
+  }
+
+  subtract(number) {
+    this.result -= number;
+  }
+
+  multiply(number) {
+    this.result *= number;
+  }
+
+  divide(number) {
+    if (number == 0)  throw new Error("Division by zero is not allowed");
+    else this.result /= number;
+  }
+
+  clear() {
+    this.result = 0;
+  }
+
+  getResult() {
+    return this.result;
+  }
+
+  calculate(expression) {
+    // cleaning the expression
+    var res = "";
+    for (let i = 0; i < expression.length; i++) {
+        let check = expression.charAt(i);
+        if (check == '0' || check == '1' || check == '2' ||
+        check == '3' || check == '4' || check == '5' ||
+        check == '6' || check == '7' || check == '8' ||
+        check == '9' || check == '+' || check == '-' ||
+        check == '*' || check == '/' || check == '(' ||
+        check == ')' || check == '.') res += check;
+    }
+    
+    // edge case: division by zero
+    for(let i = 0; i < res.length-1; i++) {
+      if (res.charAt(i) == '/' && res.charAt(i+1) == '0') {
+        throw new Error("Division by zero is not allowed");
+      }
+    }
+
+    // evaluating the mathematical function
+    var ans = eval(res);
+    this.result = ans;
+    return ans;
+
+  }
+}
 
 module.exports = Calculator;
